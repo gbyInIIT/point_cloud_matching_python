@@ -98,6 +98,9 @@ def main():
             template_and_scenen_icp_point_vtk_point_cloud.addPoint(point, tuple(template_color_cloud_npy_array_nx3[i]))
 
         # vtk_display = VtkTwoViewDisplay(slc_template_and_rotated_point_vtk_point_cloud, template_and_icp_point_vtk_point_cloud)
+        scene_alone_point_vtk_point_cloud = VtkPointCloud()
+        for i, point in enumerate(rotated_scene_point_cloud_npy_array_nx3):
+            scene_alone_point_vtk_point_cloud.addPoint(point, tuple(scene_color_cloud_npy_array_nx3[i]))
         vtk_display = VtkFourViewDisplay(firstPointCloud=scene_alone_point_vtk_point_cloud,
                                          secondPointCloud=template_alone_point_vtk_point_cloud,
                                          thirdPointCloud=template_and_scene_rotated_point_vtk_point_cloud,
