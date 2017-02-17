@@ -57,13 +57,17 @@ def main():
 
     scene_alone_point_vtk_point_cloud = VtkPointCloud()
     for i, point in enumerate(scene_point_cloud_npy_array_nx3):
-        scene_alone_point_vtk_point_cloud.addPoint(point, tuple(scene_color_cloud_npy_array_nx3[i]))
+        color = scene_color_cloud_npy_array_nx3[i]
+        c = color[0]
+        color[0] = color[2]
+        color[2] = c
+        scene_alone_point_vtk_point_cloud.addPoint(point, tuple(color))
 
     init_rotation_matrix_4x4 = transformations.euler_matrix(0, 0, 0, 'rzyx')
     n_rotation = 72
 
     for i in range(n_rotation):
-        rotation_angles = 2 * math.pi/n_rotation*i
+        rotation_angles = 2 * math.pi/n_rotation*(i+5)
         rotation_matrix_4x4 = transformations.euler_matrix(rotation_angles, 0, 0, 'rzyx')
         rotation_matrix_3x3 = np.dot(rotation_matrix_4x4[:3, :3], init_rotation_matrix_4x4[:3, :3])
         rotated_scene_point_cloud_npy_array_nx3 = np.dot(scene_point_cloud_npy_array_nx3, np.transpose(rotation_matrix_3x3)).astype(np.float32)
@@ -106,6 +110,7 @@ def main():
                                          thirdPointCloud=template_and_scene_rotated_point_vtk_point_cloud,
                                          fourthPointCloud=template_and_scenen_icp_point_vtk_point_cloud)
         vtk_display.display()
+        break
     # f.close()
 
 
