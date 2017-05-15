@@ -13,9 +13,10 @@ ymaxs = [1.0, 1.0, 1.0, 1.0]
 
 
 class VtkFourViewDisplay:
-    def __init__(self, thirdPointCloud, fourthPointCloud, firstPointCloud, secondPointCloud, back_ground_rgb_tuple_3=(0, 0, 0)):
+    def __init__(self, thirdPointCloud, fourthPointCloud, firstPointCloud, secondPointCloud, back_ground_rgb_tuple_3=(0, 0, 0), point_size=1):
         # Renderer
         self.rendererLeftUpper = vtk.vtkRenderer()
+        thirdPointCloud.vtkActor.GetProperty().SetPointSize(point_size)
         self.rendererLeftUpper.AddActor(thirdPointCloud.vtkActor)
         self.rendererLeftUpper.SetBackground(*back_ground_rgb_tuple_3)
         self.rendererLeftUpper.ResetCamera()
@@ -26,18 +27,21 @@ class VtkFourViewDisplay:
         self.rendererLeftUpper.SetActiveCamera(cameraLeftUpper)
 
         self.rendererRightUpper = vtk.vtkRenderer()
+        fourthPointCloud.vtkActor.GetProperty().SetPointSize(point_size)
         self.rendererRightUpper.AddActor(fourthPointCloud.vtkActor)
         self.rendererRightUpper.SetBackground(*back_ground_rgb_tuple_3)
         self.rendererRightUpper.SetViewport(xmins[3], ymins[3], xmaxs[3], ymaxs[3])
         self.rendererRightUpper.SetActiveCamera(self.rendererLeftUpper.GetActiveCamera())
         
         self.rendererLeftLower = vtk.vtkRenderer()
+        firstPointCloud.vtkActor.GetProperty().SetPointSize(point_size)
         self.rendererLeftLower.AddActor(firstPointCloud.vtkActor)
         self.rendererLeftLower.SetBackground(*back_ground_rgb_tuple_3)
         self.rendererLeftLower.SetViewport(xmins[0], ymins[0], xmaxs[0], ymaxs[0])
         self.rendererLeftLower.SetActiveCamera(self.rendererLeftUpper.GetActiveCamera())
 
         self.rendererRightLower = vtk.vtkRenderer()
+        secondPointCloud.vtkActor.GetProperty().SetPointSize(point_size)
         self.rendererRightLower.AddActor(secondPointCloud.vtkActor)
         self.rendererRightLower.SetBackground(*back_ground_rgb_tuple_3)
         self.rendererRightLower.SetViewport(xmins[1], ymins[1], xmaxs[1], ymaxs[1])

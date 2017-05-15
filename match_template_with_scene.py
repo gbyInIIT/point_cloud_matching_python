@@ -108,7 +108,8 @@ def main():
         vtk_display = VtkFourViewDisplay(firstPointCloud=scene_alone_point_vtk_point_cloud,
                                          secondPointCloud=template_alone_point_vtk_point_cloud,
                                          thirdPointCloud=template_and_scene_rotated_point_vtk_point_cloud,
-                                         fourthPointCloud=template_and_scenen_icp_point_vtk_point_cloud)
+                                         fourthPointCloud=template_and_scenen_icp_point_vtk_point_cloud,
+                                         back_ground_rgb_tuple_3=(255, 255, 255))
         vtk_display.display()
         break
     # f.close()
