@@ -13,7 +13,7 @@ ymaxs = [1.0, 1.0, 1.0, 1.0]
 
 
 class VtkFourViewDisplay:
-    def __init__(self, thirdPointCloud, fourthPointCloud, firstPointCloud, secondPointCloud, back_ground_rgb_tuple_3=(0, 0, 0), point_size=1):
+    def __init__(self, thirdPointCloud, fourthPointCloud, firstPointCloud, secondPointCloud, back_ground_rgb_tuple_3=(0, 0, 0), point_size=1.5):
         # Renderer
         self.rendererLeftUpper = vtk.vtkRenderer()
         thirdPointCloud.vtkActor.GetProperty().SetPointSize(point_size)
